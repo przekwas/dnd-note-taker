@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import config from './config';
 import routes from './routes';
 
+import { configurePassport } from './middlewares/passport';
 import { notFoundHandler, globalErrorHandler } from './middlewares/error-handlers';
 
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 app.get('/status', (req, res) => res.sendStatus(200));
 app.head('/status', (req, res) => res.sendStatus(200));
 
+configurePassport(app);
 app.use(express.static('public'));
 app.use(express.json());
 app.use(morgan('dev'));
