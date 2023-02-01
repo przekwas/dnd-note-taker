@@ -5,7 +5,7 @@ import config from './config';
 import routes from './routes';
 
 import { configurePassport } from './middlewares/passport';
-import { notFoundHandler, globalErrorHandler } from './middlewares/error-handlers';
+import { notFoundHandler, globalErrorHandler } from './middlewares/error-handlers.mw';
 
 const app = express();
 
