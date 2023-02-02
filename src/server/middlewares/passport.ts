@@ -1,7 +1,9 @@
 import passport from 'passport';
 import PassportLocal from 'passport-local';
+import PassportJWT from 'passport-jwt';
 import bcrypt from 'bcrypt';
 import db from '../db';
+import config from '../config';
 import type { Express } from 'express';
 
 export function configurePassport(app: Express) {
@@ -27,6 +29,17 @@ export function configurePassport(app: Express) {
 			}
 		)
 	);
+
+	passport.use(new PassportJWT.Strategy({
+		jwtFromRequest: PassportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
+		secretOrKey: config.jwt.secret
+	}, (payload, done) => {
+		try {
+			done(null, payload);
+		} catch (error) {
+			done(error);
+		}
+	}));
 
 	app.use(passport.initialize());
 }
