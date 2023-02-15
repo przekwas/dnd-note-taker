@@ -1,12 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { Home, Private, Login } from './views';
+import { Navbar } from './components';
 
 interface AppProps {}
 
 const App = (props: AppProps) => {
     return (
-        <div>
-            <h1>This is cool!!!!!!!!!</h1>
-        </div>
+        <BrowserRouter>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/private" element={<Private />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
