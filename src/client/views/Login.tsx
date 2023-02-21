@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import authService from '../services/auth';
 
 interface LoginProps {}
 
 const Login = (props: LoginProps) => {
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const [error, setError] = useState<string>('');
+
 	const [values, setValues] = useState<{ [key: string]: string }>({
 		email: 'guest@test.com',
 		password: 'password123'
 	});
 
 	const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('lul')
 		setValues(prev => ({
 			...prev,
 			[e.target.name]: e.target.value
@@ -18,18 +24,10 @@ const Login = (props: LoginProps) => {
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		fetch('/auth/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(values)
-		})
-			.then(res => res.json())
-			.then(res => {
-				localStorage.setItem('token', res.token);
-			})
-			.catch(e => console.log('[error]', e.message));
+		authService
+			.loginUser(values)
+			.then(() => navigate('/private'))
+			.catch((e) => setError(e.message));
 	};
 
 	return (
@@ -53,6 +51,10 @@ const Login = (props: LoginProps) => {
 					/>
 					<button onClick={handleClick}>Login</button>
 				</form>
+				{location.state?.from.pathname === '/private' && (
+					<div>you must be logged in, sucka</div>
+				)}
+				{error && <div>{error}</div>}
 			</div>
 		</div>
 	);
