@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../utilities/use-auth';
 import authService from '../services/auth';
 
 interface LoginProps {}
 
 const Login = (props: LoginProps) => {
 	const location = useLocation();
-	const navigate = useNavigate();
-
+	const { signin } = useAuth();
 	const [error, setError] = useState<string>('');
 
 	const [values, setValues] = useState<{ [key: string]: string }>({
@@ -26,8 +26,8 @@ const Login = (props: LoginProps) => {
 		e.preventDefault();
 		authService
 			.loginUser(values)
-			.then(() => navigate('/private'))
-			.catch((e) => setError(e.message));
+			.then(() => signin('/private'))
+			.catch(e => setError(e.message));
 	};
 
 	return (
@@ -51,8 +51,8 @@ const Login = (props: LoginProps) => {
 					/>
 					<button onClick={handleClick}>Login</button>
 				</form>
-				{location.state?.from.pathname === '/private' && (
-					<div>you must be logged in, sucka</div>
+				{location.state?.message && (
+					<div>{location.state?.message}</div>
 				)}
 				{error && <div>{error}</div>}
 			</div>

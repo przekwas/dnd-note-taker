@@ -8,7 +8,7 @@ const Navbar = (props: NavbarProps) => {
         <div>
             <Link to="/">Home</Link>
             <Link to="/login">Login</Link>
-            <Link to="/private">Private</Link>
+            <Link to="/profile">Profile</Link>
         </div>
     );
 }
