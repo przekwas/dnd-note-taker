@@ -10,6 +10,15 @@ const loginUser = async (payload: { [key:string]: string}) => {
     }
 }
 
+const registerUser = async (payload: { [key:string]: string}) => {
+    try {
+        const { token } = await baseService.post('/auth/register', payload);
+        storage.setToken(token);
+    } catch (error) {
+        throw error;
+    }
+}
+
 const validateToken = async () => {
     try {
         await baseService.get('/auth/validate/me');
@@ -20,5 +29,6 @@ const validateToken = async () => {
 
 export default { 
     loginUser,
-    validateToken
+    validateToken,
+    registerUser
 }
