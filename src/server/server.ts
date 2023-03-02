@@ -19,7 +19,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(routes);
-app.get(['/login', '/profile', '/register', '/notes', '/notes/:id'], (req, res) =>
+app.get(['/login', '/profile', '/register', '/notes', '/notes/:id', '/notes/new', '/notes/:id/update'], (req, res) =>
 	res.sendFile(path.join(__dirname, '../public/index.html'))
 );
 app.use(notFoundHandler);

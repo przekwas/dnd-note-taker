@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Home, Profile, Login, Register, Notes, NoteDetails } from './views';
+import { Home, Profile, Login, Register, Notes, NoteDetails, AddNote, UpdateNote } from './views';
 import { Navbar, AuthProvider, Private } from './components';
 
 interface AppProps {}
@@ -25,6 +25,22 @@ const App = (props: AppProps) => {
 					/>
 					<Route path="notes" element={<Notes />} />
 					<Route path="notes/:id" element={<NoteDetails />} />
+					<Route
+						path="notes/new"
+						element={
+							<Private>
+								<AddNote />
+							</Private>
+						}
+					/>
+					<Route
+						path="notes/:id/update"
+						element={
+							<Private>
+								<UpdateNote />
+							</Private>
+						}
+					/>
 				</Routes>
 			</AuthProvider>
 		</BrowserRouter>

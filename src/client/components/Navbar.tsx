@@ -11,6 +11,7 @@ const Navbar = (props: NavbarProps) => {
             <Link to="/register">Register</Link>
             <Link to="/profile">Profile</Link>
             <Link to="/notes">Notes</Link>
+            <Link to="/notes/new">Add Note</Link>
         </div>
     );
 }
