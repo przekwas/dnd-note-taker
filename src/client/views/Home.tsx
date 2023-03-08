@@ -1,19 +1,26 @@
 import React from 'react';
+import { Toast } from '../components';
 import { useAuth } from '../utilities/use-auth';
 
 interface HomeProps {}
 
 const Home = (props: HomeProps) => {
-    const { authenticated } = useAuth();
+	const { authenticated } = useAuth();
 
-    return (
-        <div>
-            <h1>Home {authenticated ? 'logged in' : 'logged out' }</h1>
-            <div>
-                <button className="btn btn-primary">Test Button</button>
-            </div>
-        </div>
-    );
-}
+	const testToast = () => {
+		Toast.error('Woooooooooooooooo!');
+	};
+
+	return (
+		<div>
+			<h1>Home {authenticated ? 'logged in' : 'logged out'}</h1>
+			<div>
+				<button onClick={testToast} className="btn btn-primary">
+					Test Button
+				</button>
+			</div>
+		</div>
+	);
+};
 
 export default Home;

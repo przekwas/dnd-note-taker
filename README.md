@@ -24,3 +24,20 @@ A project meant to learn from and teach others on how to code a full stack appli
 	<code><img height="50" src="https://user-images.githubusercontent.com/25181517/187955008-981340e6-b4cc-441b-80cf-7a5e94d29e7e.png" alt="webpack" title="webpack" /></code>
 </div>
 
+## Component Template
+
+```ts
+import React from 'react';
+
+interface TemplateProps {}
+
+const Template = (props: TemplateProps) => {
+	return (
+		<div>
+			<h1>Template Component</h1>
+		</div>
+	);
+};
+
+export default Template;
+```
