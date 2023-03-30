@@ -4,6 +4,8 @@ import { useAuth } from '../utilities/use-auth';
 import { useForm } from '../utilities/use-form';
 import authService from '../services/auth';
 
+import { Container, Input } from '../components';
+
 interface LoginProps {}
 
 const Login = (props: LoginProps) => {
@@ -24,30 +26,40 @@ const Login = (props: LoginProps) => {
 	};
 
 	return (
-		<div>
-			<h1>Login</h1>
-			<div>
-				<form>
-					<input
+		<Container>
+			<form className="flex flex-col items-center justify-center">
+				<div className="w-full max-w-xs form-control">
+					<label htmlFor="email" className="label">
+						<span className="label-text">Email</span>
+					</label>
+					<Input
 						type="email"
 						name="email"
 						autoComplete="current-email"
 						value={values.email || ''}
 						onChange={handleChanges}
 					/>
-					<input
+				</div>
+				<div className="w-full max-w-xs form-control">
+					<label htmlFor="password" className="label">
+						<span className="label-text">Password</span>
+					</label>
+					<Input
 						type="password"
 						name="password"
 						autoComplete="current-password"
 						value={values.password || ''}
 						onChange={handleChanges}
 					/>
-					<button onClick={handleClick}>Login</button>
-				</form>
-				{location.state?.message && <div>{location.state?.message}</div>}
-				{error && <div>{error}</div>}
-			</div>
-		</div>
+				</div>
+
+				<button onClick={handleClick} className="mt-5 btn btn-primary btn-wide">
+					Login
+				</button>
+			</form>
+			{location.state?.message && <div>{location.state?.message}</div>}
+			{error && <div>{error}</div>}
+		</Container>
 	);
 };
 

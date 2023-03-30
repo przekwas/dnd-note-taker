@@ -6,3 +6,4 @@ export { default as SideDrawer } from './SideDrawer';
 export { default as Toast } from './Toast';
 export { default as Container } from './Container';
 export { default as LoaderCard } from './LoaderCard';
+export { default as Input } from './Input';
