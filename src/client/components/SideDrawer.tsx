@@ -34,7 +34,7 @@ const SideDrawer = ({ toggleVisible }: SideDrawerProps) => {
 				</NavLink>
 			</li>
 			<li>
-				<NavLink to="/notes/new">Add Note</NavLink>
+				<NavLink onClick={toggleVisible} to="/notes/new">Add Note</NavLink>
 			</li>
 		</ul>
 	);

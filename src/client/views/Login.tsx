@@ -4,7 +4,7 @@ import { useAuth } from '../utilities/use-auth';
 import { useForm } from '../utilities/use-form';
 import authService from '../services/auth';
 
-import { Container, Input } from '../components';
+import { Button, Container, Input } from '../components';
 
 interface LoginProps {}
 
@@ -26,7 +26,9 @@ const Login = (props: LoginProps) => {
 	};
 
 	return (
-		<Container>
+		<Container className="py-16 text-center">
+			<h1 className="mb-4 text-4xl font-bold text-primary">Welcome back, adventurer!</h1>
+			<p className="mb-8 text-lg text-secondary">Log in to access your D&D notes.</p>
 			<form className="flex flex-col items-center justify-center">
 				<div className="w-full max-w-xs form-control">
 					<label htmlFor="email" className="label">
@@ -52,13 +54,19 @@ const Login = (props: LoginProps) => {
 						onChange={handleChanges}
 					/>
 				</div>
-
-				<button onClick={handleClick} className="mt-5 btn btn-primary btn-wide">
+				<Button onClick={handleClick} className="mt-5" color="primary" wide>
 					Login
-				</button>
+				</Button>
+				{error && <p className="mt-4 text-error">{error}</p>}
 			</form>
 			{location.state?.message && <div>{location.state?.message}</div>}
-			{error && <div>{error}</div>}
+			<p className="mt-12 text-sm text-secondary">
+				Don't have an account yet? Start your journey by{' '}
+				<a className="text-accent" href="/signup">
+					signing up
+				</a>
+				.
+			</p>
 		</Container>
 	);
 };

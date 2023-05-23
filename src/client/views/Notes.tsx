@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Card, Button, Toast } from '../components';
 import notesService from '../services/notes';
 
 interface NotesProps {}
@@ -11,24 +12,28 @@ const Notes = (props: NotesProps) => {
 		notesService
 			.getAllNotes()
 			.then(data => setNotes(data))
-			.catch(e => console.log(e.message));
+			.catch(e => Toast.error(e.message));
 	}, []);
 
 	return (
-		<div>
-			<h1>Notes View</h1>
-			<div>
+		<Container className="py-16">
+			<h2 className="mb-4 text-2xl font-bold">Your Notes</h2>
+			<div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2">
 				{notes.map(note => (
-					<div key={`note-id-${note.id}`}>
-						<h2>{note.first_name}</h2>
-                        <Link to={`/notes/${note.id}`}>
-                            <button>View Full Note</button>
-                        </Link>
-						<p>{note.body.slice(0, 25)} ...</p>
-					</div>
+					<Card key={`note-id-${note.id}`}>
+						<div className="card-body">
+							<h2 className="card-title">{note.first_name}</h2>
+							<p className="h-12 overflow-hidden">{note.body}</p>
+							<div className="justify-end card-actions">
+								<Link to={`/notes/${note.id}`}>
+									<Button color="primary">View Full Note</Button>
+								</Link>
+							</div>
+						</div>
+					</Card>
 				))}
 			</div>
-		</div>
+		</Container>
 	);
 };
 

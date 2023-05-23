@@ -1,70 +1,94 @@
 import React from 'react';
-import { Container, LoaderCard, Toast } from '../components';
 import { useAuth } from '../utilities/use-auth';
+import { useNavigate } from 'react-router-dom';
+import { Container, Hero, Button, Card } from '../components';
 
 interface HomeProps {}
 
 const Home = (props: HomeProps) => {
 	const { authenticated } = useAuth();
+	const navigate = useNavigate();
 
-	const testToast = () => {
-		Toast.error('Woooooooooooooooo!');
+	const handleClick = () => {
+		if (authenticated) {
+			navigate('notes/new');
+			return;
+		}
+
+		navigate('register');
 	};
 
 	return (
-		<Container id="special" data-wow="cupcake">
-			<h1>Home {authenticated ? 'logged in' : 'logged out'}</h1>
-			<div>
-				<button onClick={testToast} className="btn btn-primary">
-					Test Button
-				</button>
-			</div>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem qui similique sit,
-				minus totam dicta architecto dolore recusandae rerum, quaerat laborum perspiciatis.
-				Quia assumenda ea eius expedita, eligendi aut beatae! Doloribus saepe voluptatem
-				debitis commodi, eligendi quibusdam adipisci aliquid eveniet doloremque maxime
-				ducimus expedita quos tempore enim cupiditate aliquam perspiciatis unde cumque
-				deserunt voluptas. Error impedit ex odit veritatis pariatur? Accusamus ex nihil
-				ratione eius alias placeat consectetur debitis quos eligendi vel, vero culpa ducimus
-				odio facilis asperiores maxime illo. Nostrum similique, fuga unde ad quaerat
-				voluptatem ex praesentium impedit. Nihil accusantium maiores ratione? Ratione
-				blanditiis fuga, repellat dolorum impedit, ab temporibus maxime nisi amet corrupti
-				omnis. Quaerat, beatae ea velit iste perferendis laudantium et vitae sint provident
-				voluptatibus reiciendis? Nulla non nemo voluptatum beatae quos facilis? Ipsam totam
-				perspiciatis qui sit blanditiis eum alias exercitationem vel ut nam? Voluptate sed,
-				eum nemo atque consequatur inventore sequi? Fugit, reprehenderit! Consectetur?
-				Doloremque mollitia totam quibusdam placeat minus dolorem, pariatur cupiditate quas?
-				Cumque doloremque laboriosam delectus obcaecati qui vero quisquam dolorum vel
-				consequatur dignissimos sequi maiores maxime quam, nam expedita ullam odio! Eum
-				molestiae possimus accusamus, quaerat ut enim blanditiis placeat ex suscipit qui
-				atque provident iste perspiciatis iusto distinctio laboriosam libero aliquid dolores
-				ipsum voluptatem reprehenderit nam, cupiditate aspernatur reiciendis! Ipsum! Tempore
-				quia perspiciatis blanditiis vel voluptatibus ipsa officia animi officiis dicta iure
-				aliquid, eligendi incidunt impedit quae necessitatibus nobis, cum eius dolorem dolor
-				doloribus magni neque possimus. Dolor, illo dicta? Nisi ipsa, voluptas accusantium
-				aliquid eos, dolore earum expedita doloribus, sed facere fugiat illum quam neque
-				architecto quos quidem aliquam eius vitae suscipit reprehenderit tempore dolorum
-				doloremque! Dignissimos, sed corporis? Maxime reiciendis tenetur aperiam corporis
-				odit esse magni voluptatum at iste? Quos ad necessitatibus impedit, nam quibusdam
-				soluta incidunt aspernatur ratione, rem eius nostrum ab odio? Fugiat esse vel
-				nostrum? Voluptates omnis doloremque natus illum pariatur, in repellendus minus
-				officia et quas iusto nihil, dolorum esse! Ipsam dolorum enim tempora eligendi iure
-				odit nesciunt cum quo? Exercitationem veritatis a repellat! Illo temporibus, laborum
-				corporis eum distinctio eos ut aliquid suscipit. Ea cumque recusandae sed tempora
-				ipsa doloribus, commodi praesentium similique, cupiditate sit rerum aliquid,
-				mollitia asperiores enim voluptatibus aliquam vitae. Non harum temporibus voluptatem
-				culpa aperiam? Minus libero excepturi explicabo voluptate distinctio delectus!
-				Voluptates quae quos sit eum accusamus, possimus assumenda quibusdam laudantium modi
-				omnis error at architecto, dicta placeat. Porro, non minima architecto ipsam culpa
-				incidunt, omnis vitae, hic deleniti cupiditate nemo sapiente officia aliquid ex!
-				Molestias magnam iste culpa illo sit! Aspernatur maiores, quisquam consectetur ipsum
-				veritatis deserunt. Fugit delectus est eum voluptatibus, voluptates mollitia ad
-				necessitatibus cupiditate harum dignissimos, minima et repudiandae ullam similique
-				cum dolorem quis eveniet animi explicabo officia recusandae vero iste voluptatum!
-				Illo, quisquam!
-			</p>
-		</Container>
+		<div>
+			<Hero
+				className="py-16 bg-base-200"
+				title="D&D NoteMaster"
+				subtitle="The best app to manage your Dungeons & Dragons notes.">
+				<Button color="primary" size="lg" className="text-white" onClick={handleClick}>
+					Start Taking Notes
+				</Button>
+			</Hero>
+			<Container className="py-16">
+				<h2 className="mb-4 text-2xl font-bold text-center">Welcome to D&D NoteMaster</h2>
+				<p className="mb-8 text-lg">
+					D&D NoteMaster is your digital companion for your D&D adventures. Easily create,
+					manage, and organize your campaign notes. Track your quests, NPCs, and party
+					members, all in one place. Dive deeper into your campaign with D&D NoteMaster!
+				</p>
+			</Container>
+			<Container>
+				<h2 className="mb-4 text-2xl font-bold text-center">Key Features</h2>
+				<div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2 lg:grid-cols-4">
+					<Card className="shadow">
+						<div className="card-body">
+							<h2 className="card-title">Read Notes</h2>
+							<p>Easily read and navigate through your notes.</p>
+						</div>
+					</Card>
+					<Card className="shadow">
+						<div className="card-body">
+							<h2 className="card-title">Add Notes</h2>
+							<p>Create new notes with ease and detail.</p>
+						</div>
+					</Card>
+					<Card className="shadow">
+						<div className="card-body">
+							<h2 className="card-title">Edit Notes</h2>
+							<p>Update your notes as your campaign evolves.</p>
+						</div>
+					</Card>
+					<Card className="shadow">
+						<div className="card-body">
+							<h2 className="card-title">Delete Notes</h2>
+							<p>Remove old notes with just a click.</p>
+						</div>
+					</Card>
+				</div>
+			</Container>
+			<Container className="py-16">
+				<h2 className="mb-4 text-2xl font-bold text-center">Testimonials</h2>
+				<div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2">
+					<Card className="shadow">
+						<div className="card-body">
+							<h2 className="card-title">Tiamat, Queen of Dragons</h2>
+							<p>
+								D&D NoteMaster helps me keep my followers and lore organized. Highly
+								recommended!
+							</p>
+						</div>
+					</Card>
+					<Card className="shadow">
+						<div className="card-body">
+							<h2 className="card-title">Bahamut, the Platinum Dragon</h2>
+							<p>
+								As a deity of D&D, I've seen many tools, but D&D NoteMaster stands
+								out with its convenience and ease of use.
+							</p>
+						</div>
+					</Card>
+				</div>
+			</Container>
+		</div>
 	);
 };
 
