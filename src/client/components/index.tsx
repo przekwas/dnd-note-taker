@@ -20,3 +20,4 @@ export { default as Textarea } from './Textarea';
 
 // Misc. Components
 export { default as LoaderCard } from './LoaderCard';
+export { default as Modal } from './Modal';

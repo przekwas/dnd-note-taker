@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../utilities/use-auth';
 import { useForm } from '../utilities/use-form';
 import authService from '../services/auth';
@@ -62,9 +62,9 @@ const Login = (props: LoginProps) => {
 			{location.state?.message && <div>{location.state?.message}</div>}
 			<p className="mt-12 text-sm text-secondary">
 				Don't have an account yet? Start your journey by{' '}
-				<a className="text-accent" href="/signup">
+				<Link className="text-accent" to="/login">
 					signing up
-				</a>
+				</Link>
 				.
 			</p>
 		</Container>

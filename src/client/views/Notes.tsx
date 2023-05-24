@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Container, Card, Button, Toast } from '../components';
 import notesService from '../services/notes';
@@ -23,6 +24,9 @@ const Notes = (props: NotesProps) => {
 					<Card key={`note-id-${note.id}`}>
 						<div className="card-body">
 							<h2 className="card-title">{note.first_name}</h2>
+							<h3 className="text-sm text-gray-500 card-subtitle">
+								{dayjs(note.created_at).format('MMMM D, YYYY')}
+							</h3>
 							<p className="h-12 overflow-hidden">{note.body}</p>
 							<div className="justify-end card-actions">
 								<Link to={`/notes/${note.id}`}>

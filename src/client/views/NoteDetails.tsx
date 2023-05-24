@@ -1,49 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 import noteService from '../services/notes';
 
 import { GiReturnArrow, GiQuillInk, GiTrashCan } from 'react-icons/gi';
-import { Button, Container, Toast } from '../components';
-
-//test
-import ReactDOM from 'react-dom';
-
-const modalRoot = document.getElementById('modal-root');
-
-interface ModalProps {
-	onClose: () => void;
-	children: React.ReactNode;
-}
-
-const Modal = ({ onClose, children }: ModalProps) => {
-	const el = document.createElement('div');
-
-	useEffect(() => {
-		modalRoot.appendChild(el);
-	}, []);
-
-	return ReactDOM.createPortal(
-		<div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-			<div className="relative bg-white rounded-lg shadow-lg">
-				<button
-					className="absolute top-0 right-0 m-2 text-lg leading-none hover:text-red-500"
-					onClick={onClose}>
-					&times;
-				</button>
-				{children}
-			</div>
-		</div>,
-		el
-	);
-};
+import { Button, Container, Toast, Modal } from '../components';
 
 interface NoteDetailsProps {}
 
 const NoteDetails = (props: NoteDetailsProps) => {
-	const [showModal, setShowModal] = useState(false);
-
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const [showModal, setShowModal] = useState<boolean>(false);
 	const [details, setDetails] = useState<{ [key: string]: string }>(null);
 
 	useEffect(() => {
@@ -53,10 +21,17 @@ const NoteDetails = (props: NoteDetailsProps) => {
 			.catch(e => Toast.error(e.message));
 	}, [id]);
 
+	const openDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+		setShowModal(true);
+	};
+
 	const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
 		noteService
 			.destroyNote(id)
-			.then(() => navigate('/notes'))
+			.then(() => {
+				setShowModal(false);
+				navigate('/notes');
+			})
 			.catch(e => Toast.error(e.message));
 	};
 
@@ -69,7 +44,9 @@ const NoteDetails = (props: NoteDetailsProps) => {
 						<h2 className="mb-2 text-2xl font-semibold text-primary">
 							{details.first_name}
 						</h2>
-						<small className="text-secondary">{details.created_at}</small>
+						<small className="text-secondary">
+							{dayjs(details.created_at).format('MMMM D, YYYY')}
+						</small>
 						<div className="mt-4 text-secondary">
 							{details.body.split('\n').map((para, idx) => (
 								<p key={`para-idx-${idx}`}>
@@ -96,13 +73,21 @@ const NoteDetails = (props: NoteDetailsProps) => {
 					</Link>
 					<Button
 						color="ghost"
-						onClick={handleDelete}
+						onClick={openDeleteModal}
 						className="flex items-center justify-center w-full lg:w-auto">
 						<GiTrashCan className="mr-2" />
 						This note stinks
 					</Button>
 				</div>
 			</Container>
+			{showModal && (
+				<Modal onClose={() => setShowModal(false)} onConfirm={handleDelete}>
+					<h2 className="mb-4 text-2xl font-bold text-primary">Delete Note</h2>
+					<p className="mb-8 text-lg text-secondary">
+						Are you sure you want to delete this note?
+					</p>
+				</Modal>
+			)}
 		</>
 	);
 };

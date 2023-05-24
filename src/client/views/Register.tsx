@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../utilities/use-auth';
 import { useForm } from '../utilities/use-form';
 import authService from '../services/auth';
@@ -80,9 +81,9 @@ const Register = (props: RegisterProps) => {
 			</form>
 			<p className="mt-12 text-sm text-secondary">
 				Already have an account? Log in{' '}
-				<a className="text-accent" href="/login">
+				<Link className="text-accent" to="/login">
 					here
-				</a>
+				</Link>
 				.
 			</p>
 		</Container>
